@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block head %}
+<title>TODO</title>
+{% endblock %} {% block body %}
+<div class="content">
+  <h3>add tasks</h3>
+
+  {% if tasks | length < 1 %}
+  <h3>There is no task</h3>
+  {% else %}
+  <table border="1">
+    <tr>
+      <th>Task</th>
+      <th>Added</th>
+      <th>Actions</th>
+    </tr>
+    {% for task in tasks %}
+    <tr>
+      <td>{{ task.content }}</td>
+      <td>{{ task.created.strftime('%Y-%m-%d') }}</td>
+      <td>
+        <a href="/delete/{{ task.id }}">Delete</a>
+        <br />
+        <a href="/edit/{{ task.id }}">Edit</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+  <form action="/" method="POST">
+    <input type="text" name="content" id="content" />
+    <button id="add-btn">Add Task</button>
+  </form>
+</div>
+{% endblock %}
